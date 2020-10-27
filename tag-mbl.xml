@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VAST version="2.0">
+   <Ad id="VPAID">
+      <InLine>
+         <AdSystem version="1.2">Vidoomy</AdSystem>
+         <AdTitle>Vidoomy Ford Raza Fuerte</AdTitle>
+         <Impression />
+         <Creatives>
+            <Creative sequence="1">
+               <Linear>
+                  <MediaFiles>
+                     <MediaFile delivery="progressive" width="640" height="360" scalable="true" type="application/javascript" apiFramework="VPAID"><![CDATA[https://vpaid.vidoomy.com/fordranger/vido-mbl.js]]></MediaFile>
+                  </MediaFiles>
+                  <AdParameters><![CDATA[
+                  {
+                     "fonts": {
+                        "RobotoRegular": "https://vpaid.vidoomy.com/fordranger/Roboto-Regular.otf",
+                        "AntennaBlack": "https://vpaid.vidoomy.com/fordranger/Antenna-Black.otf",
+                        "AntennaBold": "https://vpaid.vidoomy.com/fordranger/Antenna-Bold.otf"
+                     },
+                     "videoUrl": "https://eu-vidoomy-tasks.s3.eu-west-2.amazonaws.com/prod/1762/2296/attachments/F079B5E95F93E7C879C57.mp4",
+                     "baseUrlImages": "https://vpaid.vidoomy.com/fordranger/"
+                  }
+                  ]]></AdParameters>
+                  <Duration>00:00:20</Duration>
+               </Linear>
+            </Creative>
+         </Creatives>
+      </InLine>
+   </Ad>
+</VAST>

@@ -1,0 +1,308 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta name="theme-color" content="#fff">
+    <title>Vidoomy - Demo Intext</title>
+    <link rel="shortcut icon" href="https://vidoomy.com/demos_new/plantillas_demos_v2/img/favicon.ico">
+    <link href="https://vidoomy.com/demos_new/plantillas_demos_v2/styles.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript">
+      function openMobile(first = false) {
+	        if(window.location.hash != '#mob' || first === true) {
+		      window.location.hash = 'mob';
+		      
+		      var mobileSimulation = document.getElementById("mobileSimulation");
+		      var main = document.getElementById("containerDesktop");
+		      var desktopButton = document.getElementById("desktopButton");
+		      var mobileButton = document.getElementById("mobileButton");
+		        
+	          mobileSimulation.style.display = "block";
+	          main.style.display = "none";
+	          desktopButton.style.opacity = "0.5";
+	          mobileButton.style.opacity = "1";
+	      
+	          document.getElementById("wrapper_mobile").innerHTML = "";
+		  	
+			  loadPlayer('wrapper_mobile', true);
+	         
+	        }
+        }
+        
+      function closeMobile() {
+        if(window.location.hash == '#mob') {
+	      window.location.hash = '';
+	        
+	      var mobileSimulation = document.getElementById("mobileSimulation");
+	      var main = document.getElementById("containerDesktop");
+	      var desktopButton = document.getElementById("desktopButton");
+	      var mobileButton = document.getElementById("mobileButton");
+	        
+          mobileSimulation.style.display = "none";
+          main.style.display = "block";
+          desktopButton.style.opacity = "1";
+          mobileButton.style.opacity = "0.5";
+          document.getElementById("wrapper").innerHTML= "";
+        
+          loadPlayer('wrapper', false);
+        }
+      }
+
+function loadPlayer(wrapper, mobile){
+	
+	console.log(mobile);
+	
+	if(mobile){
+		if(document.getElementById('containerMobile').offsetWidth > 300){
+			var pW = '312';
+			var pH = '176';
+		}else{
+			var pW = '274';
+			var pH = '154';
+		}
+	}else{
+		var pW = '640';
+		var pH = '360';
+	}
+	
+	if(mobile){
+		screen = document.getElementById('mobile_cont_screen').getBoundingClientRect();
+		getHeight = parseInt(document.getElementById('mobile_cont_screen').scrollTop) + parseInt(screen.height);
+		//theposition = getHeight;
+	}
+		
+	(function()
+	{
+	  var lkqdSettings = {
+	    pid: 430,
+	    sid: 1131530,
+	    playerContainerId: wrapper,
+	    playerId: '',
+	    playerWidth: pW,
+	    playerHeight: pH,
+	    execution: 'outstream',
+	    placement: 'incontent',
+	    playInitiation: 'auto',
+	    overrideSize: true,
+	    volume: 0,
+	    trackImp: '',
+	    trackClick: '',
+	    custom1: '',
+	    custom2: '',
+	    custom3: '',
+	    pubMacros: '',
+	    dfp: false,
+	    gdpr: '',
+	    gdprcs: '',
+	    lkqdId: new Date().getTime().toString() + Math.round(Math.random()*1000000000).toString()
+	  };
+	
+	  var lkqdVPAID;
+	  var creativeData = '';
+	  var environmentVars = { slot: document.getElementById(lkqdSettings.playerContainerId), videoSlot: document.getElementById(lkqdSettings.playerId), videoSlotCanAutoPlay: true, lkqdSettings: lkqdSettings };
+	
+	  function onVPAIDLoad()
+	  {
+	    lkqdVPAID.subscribe(function() { lkqdVPAID.startAd(); }, 'AdLoaded');
+	    lkqdVPAID.subscribe(function() { lkqdVPAID.pauseAd(); },'AdNotViewable');
+	    lkqdVPAID.subscribe(function() { lkqdVPAID.resumeAd(); }, 'AdViewable');
+	  }
+	
+	  var vpaidFrame = document.createElement('iframe');
+	  vpaidFrame.id = lkqdSettings.lkqdId;
+	  vpaidFrame.name = lkqdSettings.lkqdId;
+	  vpaidFrame.style.display = 'none';
+	  var vpaidFrameLoaded = function() {
+	    vpaidFrame.contentWindow.addEventListener('lkqdFormatsLoad', function() {
+	      lkqdVPAID = vpaidFrame.contentWindow.getVPAIDAd();
+	      onVPAIDLoad();
+	      lkqdVPAID.handshakeVersion('2.0');
+	      lkqdVPAID.initAd(lkqdSettings.playerWidth, lkqdSettings.playerHeight, 'normal', 600, creativeData, environmentVars);
+	    });
+	    vpaidLoader = vpaidFrame.contentWindow.document.createElement('script');
+	    vpaidLoader.setAttribute('async','async');
+	    vpaidLoader.src = 'https://ad.lkqd.net/vpaid/formats.js';
+	    vpaidFrame.contentWindow.document.body.appendChild(vpaidLoader);
+	  };
+	  vpaidFrame.onload = vpaidFrameLoaded;
+	  vpaidFrame.onerror = vpaidFrameLoaded;
+	  document.documentElement.appendChild(vpaidFrame);
+	})();
+	
+}
+
+window.onload = function () {
+	    openMobile(true);
+	    document.getElementById('bbdy').style.visibility = 'visible';
+}
+
+</script>
+</head>
+
+<body id="bbdy" style="visibility: hidden;">
+  <nav>
+      <div class="navElements logo"><img  src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/logo.svg"></div>
+      <div class="navElements menu"><img  src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/ico_menu.svg"></div>
+  </nav>
+
+  <div class="cover">
+    <h1>HAZ SCROLL PARA VISUALIZAR<br>LA CREATIVIDAD</h1>
+  </div>
+
+  <main id="containerDesktop">
+   <section >
+     <article>
+       <header>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</header>
+       <div class="articleSubtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+       </div>
+       <div class="sub-headers">REDACCIÓN EL HUFFPOST</div>
+       <figure class="video">
+          <img src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/video.png" alt="video" >
+       </figure>
+      <div class="sub-headers">TENDENCIAS | 23 2020</div>
+      <div class="articleText"> 
+        <p>
+          <b>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </b>
+        </p>
+
+        <!-- CONTENIDO CREATIVIDAD -->
+            <div id="wrapper_wrapper">
+              <div class="wrapper" id="wrapper"></div>
+            </div>
+        <!-- FIN CONTENIDO CREATIVIDAD -->
+
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+        </p>
+
+        <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+
+      </div>
+     </article>
+
+     <section class="rrss">
+       <img src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/social_01.png">
+       <img src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/social_02.png">
+     </section>
+
+     <section class="news">
+       <header>Noticias relacionadas</header>
+       <div class="cont_news_img">
+         <img class="newsImg" src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/news_01.png">
+         <img class="newsImg" src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/news_02.png">
+         <img class="newsImg" src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/news_03.png">
+       </div>
+     </section>
+   </section>
+
+   <aside>
+     <div class="asideElements">
+      <img src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/sidebar_01.png">
+       <div class="sub-headers">TENDENCIAS | 23 AGO 2020</div>
+       <p class="asideText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+     </div>
+     <div class="asideElements">
+      <img src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/sidebar_02.png">
+       <div class="sub-headers">TENDENCIAS | 23 AGO 2020</div>
+       <p class="asideText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+     </div>
+   </aside>
+  </main>
+   
+  <footer>
+    <div class="footerSubcont">
+      <div class="footerElements logo"><img  src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/logo_white.svg"></div>
+      <div class="footerElements disclaimer">AVISO LEGAL &nbsp;|&nbsp;   POLÍTICA DE PRIVACIDAD</div>
+    </div>
+  </footer>
+
+  <div class="switch"><div class="switchSubcont"><div id="desktopButton" class="switchButtons" onclick="closeMobile()" ><img src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/ico_desktop.svg"></div><div id="mobileButton" class="switchButtons" onclick="openMobile()"><img src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/ico_mobile.svg"></div></div></div>
+  
+<!--  ////////////////////////////////////////////////Mobile Simulation Html////////////////////////////////////////////////  -->
+  <div id="mobileSimulation">
+    <div class="mobile_subcont">
+      <div class="screen_cont" id="mobile_cont_screen">
+        <nav class="nav_mobile">
+            <div class="navElements logo"><img  src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/logo.svg"></div>
+            <div class="navElements menu"><img  src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/ico_menu.svg"></div>
+        </nav>
+        <div class="cover_mobile">
+          <h1>HAZ SCROLL PARA VISUALIZAR<br>LA CREATIVIDAD</h1>
+        </div>
+
+        <main id="containerMobile">
+         <section class="section_mobile">
+           <article>
+             <header>Los fiordos noruegos, elegidos como mejor destino turístico para 2020</header>
+             <div class="articleSubtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+             </div>
+             <div class="sub-headers">REDACCIÓN EL HUFFPOST</div>
+             <figure class="video">
+                <img src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/video.png" alt="video" >
+             </figure>
+            <div class="sub-headers">TENDENCIAS | 23 2020</div>
+            <div class="articleText"> 
+              <p>
+                <b>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </b>
+              </p>
+			  <div id="wrapper_wrapper_mobile">
+				  <div class="wrapper" id="wrapper_mobile"></div>
+			  </div>
+              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+              </p>
+
+              <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+
+              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+            </div>
+           </article>
+
+           <section class="rrss">
+             <img src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/social_01.png">
+             <img src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/social_02.png">
+           </section>
+
+           <section class="news">
+             <header>Noticias relacionadas</header>
+             <div class="cont_news_img_mobile">
+               <img class="newsImg" src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/news_01.png">
+               <img class="newsImg" src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/news_02.png">
+               <img class="newsImg" src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/news_03.png">
+             </div>
+           </section>
+         </section>
+
+         <aside class="aside_mobile">
+           <div class="asideElements">
+            <img src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/sidebar_01.png">
+             <div class="sub-headers">TENDENCIAS | 23 AGO 2020</div>
+             <p class="asideText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+           </div>
+           <div class="asideElements">
+            <img src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/sidebar_02.png">
+             <div class="sub-headers">TENDENCIAS | 23 AGO 2020</div>
+             <p class="asideText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+           </div>
+         </aside>
+        </main>
+         
+        <footer>
+          <div class="footerSubcont_mobile">
+            <div class="footerElements logo"><img  src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/logo_white.svg"></div>
+            <div class="footerElements disclaimer_mobile">AVISO LEGAL | POLÍTICA DE PRIVACIDAD</div>
+          </div>
+        </footer>
+      
+      </div>
+     <!-- <img class="case" src="https://vidoomy.com/demos_new/plantillas_demos_v2/img/case.png"> -->
+    </div>
+  </div>
+   <!--  ////////////////////////////////////////////////Mobile Simulation Html  END////////////////////////////////////////////////  -->
+</body>
+</html>

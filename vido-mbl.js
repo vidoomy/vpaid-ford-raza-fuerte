@@ -156,6 +156,7 @@ VpaidVideoPlayer.prototype.updateVideoSlot_ = function() {
   if (this.videoSlot_ == null) {
     this.videoSlot_ = document.createElement('video');
     //this.log('Warning: No video element passed to ad, creating element.');
+    this.slot_.appendChild(this.videoSlot_);
   }
 
   this.videoSlot_.ontimeupdate = function (e) {
@@ -166,22 +167,8 @@ VpaidVideoPlayer.prototype.updateVideoSlot_ = function() {
         this.videoSlot_.onplay = null;
       }.bind(this);
     }
-    if (this.videoSlot_.currentTime >= 2) {
-      makeSmallVideo.bind(this)();
-    }
     this.videoSlot_.style.backgroundColor = "#0000";
   }.bind(this);
-
-  globalWrapper = document.createElement("div");
-  globalWrapper.style.position = "absolute";
-  globalWrapper.style.top = "0";
-  globalWrapper.style.bottom = "0";
-  globalWrapper.style.left = "0";
-  globalWrapper.style.right = "0";
-
-  globalWrapper.appendChild(this.videoSlot_);
-
-  this.slot_.appendChild(globalWrapper);
   
   this.videoSlot_.setAttribute('src', this.parameters_.videoUrl);
 
@@ -214,125 +201,170 @@ VpaidVideoPlayer.prototype.handshakeVersion = function(version) {
 };
 
 var wrapper;
-var grid;
-var socialNetworkWrapper;
-var txtTitle;
-var content;
 
-function makeSmallVideo() {
-
-  this.videoSlot_.style.transition = "all .5s";
-  this.videoSlot_.style.width = "323px";
-  this.videoSlot_.style.height = "185px";
-  this.videoSlot_.style.marginTop = "90px";
-  this.videoSlot_.style.marginLeft = "12px";
-
-  this.videoSlot_.controls = true;
-}
-
-function build() {
-  var img = new Image();
-  img.src = this.parameters_.baseUrlImages + "img/explorar.png";
-  var img2 = new Image();
-  img2.src = this.parameters_.baseUrlImages + "img/caracteristicas.png";
-  var img3 = new Image();
-  img3.src = this.parameters_.baseUrlImages + "img/strongrace.png";
-
-  this.videoSlot_.style.zIndex = "5";
-  this.slot_.onmouseenter = function () {
-    makeSmallVideo.bind(this)();
-  }.bind(this);
-
-  this.slot_.onmouseleave = function () {
-    /*this.videoSlot_.style.transition = "all .5s";
-    this.videoSlot_.style.width = "100%";
-    this.videoSlot_.style.height = "100%";
-    this.videoSlot_.style.marginTop = "0";
-    this.videoSlot_.style.marginLeft = "0";
-*/
-    this.videoSlot_.controls = false;
-  }.bind(this);
-
-  globalWrapper.style.backgroundImage = "url(" + this.parameters_.baseUrlImages + "img/explorar.png)";
-  globalWrapper.style.backgroundRepeat = "no-repeat";
-  globalWrapper.style.backgroundSize = "cover";
-  globalWrapper.style.position = "absolute";
+function buildMbl() {
+  globalWrapper = document.createElement("div");
+  globalWrapper.style.position = "fixed";
+  globalWrapper.style.top = "0";
+  globalWrapper.style.bottom = "0";
+  globalWrapper.style.left = "0";
+  globalWrapper.style.right = "0";
+  globalWrapper.style.display = "none";
 
   wrapper = document.createElement("div");
-  wrapper.style.position = "absolute";
   wrapper.style.top = "0";
+  wrapper.style.bottom = "0";
   wrapper.style.left = "0";
   wrapper.style.right = "0";
-  wrapper.style.bottom = "0";
+  wrapper.style.position = "absolute";
+
+  globalWrapper.appendChild(wrapper);
+
+  top.document.body.appendChild(globalWrapper);
+
+  this.slot_.onclick = function () {
+    globalWrapper.style.display = "block";
+    this.videoSlot_.style.position = "fixed";
+    this.videoSlot_.style.top = "65px";
+    this.videoSlot_.style.left = "0";
+    this.videoSlot_.style.width = "100%";
+    this.videoSlot_.style.height = "auto";
+    this.videoSlot_.controls = true;
+
+    globalWrapper.appendChild(this.videoSlot_);
+  }.bind(this);
+
+  var menu = getMenu.bind(this)();
+  globalWrapper.appendChild(menu);
+
   
-  var menuWrapper = getMenu.bind(this)();
-  wrapper.appendChild(menuWrapper);
 
   getExploreTab.bind(this)(wrapper);
 
-  this.slot_.appendChild(wrapper);
-
 }
 
+
+
 function getExploreTab(wrapper) {
+
+  wrapper.style.backgroundImage = "url(" + this.parameters_.baseUrlImages + "img-mbl/background-explore.jpg)";
+  wrapper.style.backgroundRepeat = "no-repeat";
+  wrapper.style.backgroundPositionX = "center";
+  wrapper.style.backgroundPositionY = "bottom";
+  wrapper.style.backgroundSize = "contain";
+  wrapper.style.backgroundColor = "#204054";
+
   var socialNetworkWrapper = getSocialNetworkFor.bind(this)('explore');
   wrapper.appendChild(socialNetworkWrapper);
   
+  var centerWrapper = document.createElement("div");
+  centerWrapper.style.position = "absolute";
+  centerWrapper.style.bottom = "60px";
+  centerWrapper.style.right = "0";
+  centerWrapper.style.left = "0";
+  centerWrapper.style.width = "100%";
+
   var btn = document.createElement("button");
   btn.textContent = "Inicia tu compra online >";
-  btn.style.position = "absolute";
-  btn.style.bottom = "24px";
-  btn.style.right = "24px";
+  btn.style.display = "block";
   btn.style.width = "224px";
   btn.style.height = "40px";
+  btn.style.margin = "0 auto";
   btn.style.background = "#44a9df";
   btn.style.border = "none";
   btn.style.outline = "none";
   btn.style.color = "#fff";
-  btn.style.fontFamily = "Antenna-bold";
+  btn.style.fontFamily = "Antenna-black";
   btn.style.cursor = "pointer";
   btn.onclick = function () {
     window.open("https://www.cotizacion.ford.com/compra-online/index-desktop.asp?codigo=ranger&utm_source=ford.com.ar");
   }
 
-  wrapper.appendChild(btn);
+  centerWrapper.appendChild(btn);
+  wrapper.appendChild(centerWrapper);
+
+
+  var txt = document.createElement("div");
+  txt.style.position = "absolute";
+  txt.style.width = "55%";
+  txt.style.top = "54%";
+  txt.style.fontFamily = "Antenna-bold";
+  txt.style.color = "#fff";
+  txt.style.left = "20px";
+
+  var h2 = document.createElement("h2");
+  h2.textContent = "RANGER.";
+
+  txt.appendChild(h2);
+
+  var p = document.createElement("p");
+  p.textContent = "Raza Fuerte, tecnología y seguridad";
+
+  txt.appendChild(p);
+
+
+  wrapper.appendChild(txt);
+
 }
 
 function getFeaturesTab(wrapper) {
+
+  wrapper.style.backgroundImage = "url(" + this.parameters_.baseUrlImages + "img-mbl/background-features.jpg)";
+  wrapper.style.backgroundRepeat = "no-repeat";
+  wrapper.style.backgroundPositionX = "center";
+  wrapper.style.backgroundPositionY = "top";
+  wrapper.style.backgroundSize = "contain";
+  wrapper.style.backgroundColor = "#fff";
+
+
   txtTitle = document.createElement("div");
   txtTitle.textContent = "¿Por qué elegir un Ford Ranger?";
-  txtTitle.style.width = "100%";
-  txtTitle.style.fontFamily = "Antenna-black";
+  txtTitle.style.width = "calc(100% - 125px)";
+  txtTitle.style.fontFamily = "Antenna-bold";
   txtTitle.style.color = "#fff";
-  txtTitle.style.textAlign = "center";
+  txtTitle.style.textAlign = "left";
   txtTitle.style.position = "absolute";
   txtTitle.style.top = "85px";
+  txtTitle.style.left = "110px";
   txtTitle.style.fontSize = "20px";
   txtTitle.style.userSelect = "none";
 
   wrapper.appendChild(txtTitle);
 
+  var logo = document.createElement("div");
+  logo.style.position = "absolute";
+  logo.style.top = "65px";
+  logo.style.left = "10px";
+  logo.style.backgroundImage = "url(" + this.parameters_.baseUrlImages + "img-mbl/logo.jpg)";
+  logo.style.backgroundSize = "contain";
+  logo.style.backgroundRepeat = "no-repeat";
+  logo.style.width = "90px";
+  logo.style.height = "90px";
+  logo.style.zIndex = "5";
+
+  wrapper.appendChild(logo);
+
 
   grid = document.createElement("div");
   grid.style.position = "absolute";
   grid.style.bottom = "0";
-  grid.style.top = "120px";
+  grid.style.top = "142px";
   grid.style.left = "0";
   grid.style.right = "0";
   /*grid.style.display = "flex";
   grid.style.flexWrap = "wrap";*/
 
   var img1 = document.createElement("div");
-  img1.style.background = "url(" + this.parameters_.baseUrlImages + "img/grid/grid-1.png) #fff";
-  img1.style.height = "158px";
-  img1.style.width = "160px";
-  img1.style.backgroundRepeat = "no-repeat";
+  img1.style.background = "url(" + this.parameters_.baseUrlImages + "img-mbl/grid/grid-seguridad.jpg) #fff";
   img1.style.backgroundSize = "cover";
+  img1.style.height = "50%";
+  img1.style.width = "33%";
+  img1.style.backgroundRepeat = "no-repeat";
   img1.style.position = "absolute";
   img1.style.cursor = "pointer";
 
   var obscurer1 = document.createElement("div");
-  obscurer1.style.opacity = "0";
+  obscurer1.style.opacity = "1";
   obscurer1.style.width = "100%";
   obscurer1.style.height = "100%";
   obscurer1.style.background = "linear-gradient(#fff0, #42a4d8)";
@@ -343,37 +375,32 @@ function getFeaturesTab(wrapper) {
   obscurer1.style.fontFamily = "Antenna-black";
 
   var txt1 = document.createElement("div");
-  txt1.textContent = "TECNOLOGÍA >";
+  txt1.textContent = "SEGURIDAD >";
   txt1.style.marginBottom = "10px";
-  txt1.style.fontSize = "15px";
+  txt1.style.fontSize = "13px";
   txt1.style.userSelect = "none";
 
   img1.appendChild(obscurer1);
-  img1.onmouseover = function () {
-    obscurer1.style.opacity = "1";
-  }
-  img1.onmouseout = function () {
-    obscurer1.style.opacity = "0";
-  }
   img1.onclick = function () {
-    window.open("https://www.ford.com.ar/crossovers-suvs-4x4/nueva-ranger/tecnologia/");
+    window.open("https://www.ford.com.ar/crossovers-suvs-4x4/nueva-ranger/seguridad/");
+    //window.open("https://www.ford.com.ar/crossovers-suvs-4x4/nueva-ranger/tecnologia/");
   }
   
   obscurer1.appendChild(txt1);
   grid.appendChild(img1);
 
   var img2 = document.createElement("div");
-  img2.style.background = "url(" + this.parameters_.baseUrlImages + "img/grid/grid-2.png) #fff";
-  img2.style.height = "83px";
-  img2.style.width = "161px";
-  img2.style.backgroundRepeat = "no-repeat";
+  img2.style.background = "url(" + this.parameters_.baseUrlImages + "img-mbl/grid/grid-tecnologia.jpg) #fff";
   img2.style.backgroundSize = "cover";
+  img2.style.height = "25%";
+  img2.style.width = "66%";
+  img2.style.backgroundRepeat = "no-repeat";
   img2.style.position = "absolute";
-  img2.style.left = "162px";
+  img2.style.left = "34%";
   img2.style.cursor = "pointer";
 
   var obscurer2 = document.createElement("div");
-  obscurer2.style.opacity = "0";
+  obscurer2.style.opacity = "1";
   obscurer2.style.width = "100%";
   obscurer2.style.height = "100%";
   obscurer2.style.background = "linear-gradient(#fff0, #42a4d8)";
@@ -384,91 +411,45 @@ function getFeaturesTab(wrapper) {
   obscurer2.style.fontFamily = "Antenna-black";
 
   var txt2 = document.createElement("div");
-  txt2.textContent = "ACCESORIOS >";
+  txt2.textContent = "TECNOLOGÍA >";
   txt2.style.marginBottom = "10px";
-  txt2.style.fontSize = "15px";
+  txt2.style.fontSize = "13px";
   txt2.style.userSelect = "none";
 
   img2.appendChild(obscurer2);
-  img2.onmouseover = function () {
-    obscurer2.style.opacity = "1";
-  }
-  img2.onmouseout = function () {
-    obscurer2.style.opacity = "0";
-  }
   img2.onclick = function () {
-    window.open("https://www.ford.com.ar/crossovers-suvs-4x4/nueva-ranger/accesorios/");
+    window.open("https://www.ford.com.ar/crossovers-suvs-4x4/nueva-ranger/tecnologia/");
   }
   
   obscurer2.appendChild(txt2);
   grid.appendChild(img2);
 
   var img3 = document.createElement("div");
-  img3.style.background = "url(" + this.parameters_.baseUrlImages + "img/grid/grid-3.png) #fff";
-  img3.style.height = "83px";
-  img3.style.width = "161px";
+  img3.style.background = "url(" + this.parameters_.baseUrlImages + "img-mbl/grid/grid-garantia.jpg) #44a9df";
+  img3.style.backgroundSize = "contain";
+  img3.style.backgroundPosition = "center center";
+  img3.style.height = "24.5%";
+  img3.style.width = "66%";
   img3.style.backgroundRepeat = "no-repeat";
-  img3.style.backgroundSize = "cover";
   img3.style.position = "absolute";
-  img3.style.left = "325px";
-  img3.style.cursor = "pointer";
-
-  var obscurer3 = document.createElement("div");
-  obscurer3.style.opacity = "0";
-  obscurer3.style.width = "100%";
-  obscurer3.style.height = "100%";
-  obscurer3.style.background = "linear-gradient(#fff0, #42a4d8)";
-  obscurer3.style.display = "flex";
-  obscurer3.style.justifyContent = "center";
-  obscurer3.style.alignItems = "flex-end";
-  obscurer3.style.color = "#fff";
-  obscurer3.style.fontFamily = "Antenna-black";
-
-  var txt3 = document.createElement("div");
-  txt3.textContent = "MODELOS >";
-  txt3.style.marginBottom = "10px";
-  txt3.style.fontSize = "15px";
-  txt3.style.userSelect = "none";
-
-  img3.appendChild(obscurer3);
-  img3.onmouseover = function () {
-    obscurer3.style.opacity = "1";
-  }
-  img3.onmouseout = function () {
-    obscurer3.style.opacity = "0";
-  }
-  img3.onclick = function () {
-    window.open("https://www.ford.com.ar/crossovers-suvs-4x4/nueva-ranger/comparar-modelos/");
-  }
-  
-  obscurer3.appendChild(txt3);
+  img3.style.left = "34%";
+  img3.style.top = "25.5%";
   grid.appendChild(img3);
 
-  var img4 = document.createElement("div");
-  img4.style.background = "url(" + this.parameters_.baseUrlImages + "img/grid/grid-4.png) #44a9df";
-  img4.style.height = "83px";
-  img4.style.width = "150px";
-  img4.style.backgroundRepeat = "no-repeat";
-  img4.style.backgroundSize = "contain";
-  img4.style.backgroundPosition = "center";
-  img4.style.position = "absolute";
-  img4.style.left = "489px";
-  
-  grid.appendChild(img4);
 
   var img5 = document.createElement("div");
-  img5.style.background = "url(" + this.parameters_.baseUrlImages + "img/grid/grid-5.png) #fff";
-  img5.style.height = "155px";
-  img5.style.width = "161px";
+  img5.style.background = "url(" + this.parameters_.baseUrlImages + "img-mbl/grid/grid-accesorios.jpg) #fff";
+  img5.style.backgroundSize = "contain";
+  img5.style.height = "25%";
+  img5.style.width = "33%";
   img5.style.backgroundRepeat = "no-repeat";
   img5.style.backgroundSize = "cover";
   img5.style.position = "absolute";
-  img5.style.left = "162px";
-  img5.style.top = "85px";
+  img5.style.top = "50.5%";
   img5.style.cursor = "pointer";
 
   var obscurer5 = document.createElement("div");
-  obscurer5.style.opacity = "0";
+  obscurer5.style.opacity = "1";
   obscurer5.style.width = "100%";
   obscurer5.style.height = "100%";
   obscurer5.style.background = "linear-gradient(#fff0, #42a4d8)";
@@ -479,38 +460,33 @@ function getFeaturesTab(wrapper) {
   obscurer5.style.fontFamily = "Antenna-black";
 
   var txt5 = document.createElement("div");
-  txt5.textContent = "SEGURIDAD >";
+  txt5.textContent = "ACCESORIOS >";
   txt5.style.marginBottom = "10px";
-  txt5.style.fontSize = "15px";
+  txt5.style.fontSize = "13px";
   txt5.style.userSelect = "none";
 
   img5.appendChild(obscurer5);
-  img5.onmouseover = function () {
-    obscurer5.style.opacity = "1";
-  }
-  img5.onmouseout = function () {
-    obscurer5.style.opacity = "0";
-  }
   img5.onclick = function () {
-    window.open("https://www.ford.com.ar/crossovers-suvs-4x4/nueva-ranger/seguridad/");
+    window.open("https://www.ford.com.ar/crossovers-suvs-4x4/nueva-ranger/accesorios/");
   }
   
   obscurer5.appendChild(txt5);
   grid.appendChild(img5);
 
   var img6 = document.createElement("div");
-  img6.style.background = "url(" + this.parameters_.baseUrlImages + "img/grid/grid-6.png) #fff";
-  img6.style.height = "155px";
-  img6.style.width = "314px";
+  img6.style.background = "url(" + this.parameters_.baseUrlImages + "img-mbl/grid/grid-diseno.jpg) #fff";
+  img6.style.backgroundSize = "contain";
+  img6.style.height = "50%";
+  img6.style.width = "66%";
   img6.style.backgroundRepeat = "no-repeat";
   img6.style.backgroundSize = "cover";
   img6.style.position = "absolute";
-  img6.style.left = "325px";
-  img6.style.top = "85px";
+  img6.style.left = "34%";
+  img6.style.top = "50.5%";
   img6.style.cursor = "pointer";
 
   var obscurer6 = document.createElement("div");
-  obscurer6.style.opacity = "0";
+  obscurer6.style.opacity = "1";
   obscurer6.style.width = "100%";
   obscurer6.style.height = "100%";
   obscurer6.style.background = "linear-gradient(#fff0, #42a4d8)";
@@ -523,16 +499,10 @@ function getFeaturesTab(wrapper) {
   var txt6 = document.createElement("div");
   txt6.textContent = "DISEÑO >";
   txt6.style.marginBottom = "10px";
-  txt6.style.fontSize = "15px";
+  txt6.style.fontSize = "13px";
   txt6.style.userSelect = "none";
 
   img6.appendChild(obscurer6);
-  img6.onmouseover = function () {
-    obscurer6.style.opacity = "1";
-  }
-  img6.onmouseout = function () {
-    obscurer6.style.opacity = "0";
-  }
   img6.onclick = function () {
     window.open("https://www.ford.com.ar/crossovers-suvs-4x4/nueva-ranger/galeria/");
   }
@@ -542,13 +512,14 @@ function getFeaturesTab(wrapper) {
   grid.appendChild(img6);
 
   var img7 = document.createElement("div");
-  img7.style.background = "url(" + this.parameters_.baseUrlImages + "img/grid/grid-7.png) #fff";
-  img7.style.height = "80px";
-  img7.style.width = "160px";
+  img7.style.background = "url(" + this.parameters_.baseUrlImages + "img-mbl/grid/grid-redes.jpg) #fff";
+  img7.style.backgroundSize = "contain";
+  img7.style.height = "25%";
+  img7.style.width = "33%";
   img7.style.backgroundRepeat = "no-repeat";
   img7.style.backgroundSize = "cover";
   img7.style.position = "absolute";
-  img7.style.top = "160px";
+  img7.style.top = "76%";
   
   grid.appendChild(img7);
 
@@ -558,13 +529,12 @@ function getFeaturesTab(wrapper) {
 
   wrapper.appendChild(grid);
 }
-
 function getSocialNetworkFor(what) {
   socialNetworkWrapper = document.createElement("div");
 
   socialNetworkWrapper.style.position = "absolute";
   if (what === 'explore') {
-    socialNetworkWrapper.style.bottom = "30px";
+    socialNetworkWrapper.style.top = "75%";
     socialNetworkWrapper.style.left = "12px";
     socialNetworkWrapper.style.width = "300px";
     socialNetworkWrapper.style.display = "flex";
@@ -572,8 +542,8 @@ function getSocialNetworkFor(what) {
   if (what === 'features') {
     socialNetworkWrapper.style.bottom = "0px";
     socialNetworkWrapper.style.left = "-10px";
-    socialNetworkWrapper.style.width = "158px";
-    socialNetworkWrapper.style.height = "73px";
+    socialNetworkWrapper.style.width = "calc(100% + 10px)";
+    socialNetworkWrapper.style.height = "100%";
     socialNetworkWrapper.style.display = "flex";
     socialNetworkWrapper.style.alignItems = "center";
     socialNetworkWrapper.style.justifyContent = "center";
@@ -643,26 +613,74 @@ function getSocialNetworkFor(what) {
 }
 
 function getStrongRaceTab(wrapper) {
+
+  wrapper.style.backgroundImage = "url(" + this.parameters_.baseUrlImages + "img-mbl/background-strongrace.jpg)";
+  wrapper.style.backgroundRepeat = "no-repeat";
+  wrapper.style.backgroundPositionX = "center";
+  wrapper.style.backgroundPositionY = "bottom";
+  wrapper.style.backgroundSize = "cover";
+  wrapper.style.backgroundColor = "#1b394e";
+
+
   txtTitle = document.createElement("div");
-  txtTitle.textContent = "Descubre el concepto de Raza Fuerte";
   txtTitle.style.width = "100%";
   txtTitle.style.fontFamily = "Antenna-black";
   txtTitle.style.color = "#363636";
   txtTitle.style.userSelect = "none";
   txtTitle.style.textAlign = "center";
   txtTitle.style.position = "absolute";
-  txtTitle.style.top = "85px";
+  txtTitle.style.top = "65px";
+  txtTitle.style.height = "12%";
   txtTitle.style.fontSize = "20px";
+  txtTitle.style.color = "#fff";
+  txtTitle.style.display = "flex";
+  txtTitle.style.alignItems = "center";
+  txtTitle.style.justifyContent = "center";
+  txtTitle.style.backgroundImage = "url(" + this.parameters_.baseUrlImages + "img-mbl/strong-race-bg-title.jpg)";
 
+
+  var title = document.createElement("div");
+  title.textContent = "Descubre el concepto de Raza Fuerte";
+  title.style.width = "calc(100% - 125px)";
+  title.style.fontFamily = "Antenna-bold";
+  title.style.color = "#fff";
+  title.style.textAlign = "left";
+  title.style.position = "absolute";
+  title.style.left = "110px";
+  title.style.fontSize = "20px";
+  title.style.userSelect = "none";
+
+  txtTitle.appendChild(title);
   wrapper.appendChild(txtTitle);
 
+  var logo = document.createElement("div");
+  logo.style.position = "absolute";
+  logo.style.top = "65px";
+  logo.style.left = "10px";
+  logo.style.backgroundImage = "url(" + this.parameters_.baseUrlImages + "img-mbl/logo.jpg)";
+  logo.style.backgroundSize = "contain";
+  logo.style.backgroundRepeat = "no-repeat";
+  logo.style.width = "90px";
+  logo.style.height = "90px";
+  logo.style.zIndex = "5";
+
+  wrapper.appendChild(logo);
+
+  var centerContent = document.createElement("div");
+  centerContent.style.position = "absolute";
+  centerContent.style.width = "100%";
+  centerContent.style.height = "calc(100% - 118px)";
+  centerContent.style.top = "118px";
+  centerContent.style.display = "flex";
+  centerContent.style.justifyContent = "center";
+  centerContent.style.alignItems = "center";
+
   content = document.createElement("div");
-  content.style.position = "absolute";
-  content.style.width = "215px";
-  content.style.height = "215px";
-  content.style.top = "118px";
-  content.style.left = "30px";
+  content.style.width = "220px";
   content.style.padding = "10px";
+  content.style.position = "relative";
+  content.style.top = "-5%";
+  content.style.backgroundColor = "#0008";
 
   var h2 = document.createElement("h2");
   h2.textContent = "Raza Fuerte";
@@ -684,35 +702,36 @@ function getStrongRaceTab(wrapper) {
 
   content.appendChild(txt);
 
-  wrapper.appendChild(content);
-  
   var btn = document.createElement("button");
   btn.textContent = "CONOCÉ MÁS >";
-  btn.style.position = "absolute";
-  btn.style.bottom = "24px";
-  btn.style.right = "24px";
-  btn.style.width = "224px";
+  btn.style.width = "220px";
   btn.style.height = "40px";
   btn.style.background = "#44a9df";
   btn.style.border = "none";
   btn.style.outline = "none";
   btn.style.color = "#fff";
-  btn.style.fontFamily = "Antenna-bold";
+  btn.style.fontFamily = "Antenna-black";
   btn.style.cursor = "pointer";
+  btn.style.marginTop = "30px";
   btn.onclick = function () {
     window.open("https://www.ford.com.ar/crossovers-suvs-4x4/nueva-ranger/robustez/");
   }
 
-  wrapper.appendChild(btn);
+  content.appendChild(btn);
+
+  centerContent.appendChild(content);
+
+  wrapper.appendChild(centerContent);
 }
 
 function getMenu() {
   var menuWrapper = document.createElement("div");
   menuWrapper.style.position = "absolute";
-  menuWrapper.style.height = "35px";
-  menuWrapper.style.top = "25px";
-  menuWrapper.style.left = "142px";
-  menuWrapper.style.right = "0px";
+  menuWrapper.style.height = "65px";
+  menuWrapper.style.top = "0";
+  menuWrapper.style.left = "0";
+  menuWrapper.style.right = "0";
+  menuWrapper.style.backgroundColor = "#1b394e";
 
   var btnExplore = getBaseBtn();
   var btnFeatures = getBaseBtn();
@@ -723,13 +742,9 @@ function getMenu() {
   btnExplore.style.color = "#40a9e0";
 
   btnExplore.onclick = function () {
-    if (grid) grid.remove();
-    if (socialNetworkWrapper) socialNetworkWrapper.remove();
-    if (txtTitle) txtTitle.remove();
-    if (content) content.remove();
+    if (wrapper) wrapper.innerHTML = '';
     
     getExploreTab.bind(this)(wrapper);
-    globalWrapper.style.background = "url(" + this.parameters_.baseUrlImages + "img/explorar.png) #fff";
     this.videoSlot_.play();
     this.videoSlot_.style.display = "block";
     btnExplore.style.borderBottom = "5px #fff solid";
@@ -747,13 +762,9 @@ function getMenu() {
   btnFeatures.textContent = "Características";
 
   btnFeatures.onclick = function () {
-    if (grid) grid.remove();
-    if (socialNetworkWrapper) socialNetworkWrapper.remove();
-    if (txtTitle) txtTitle.remove();
-    if (content) content.remove();
+    if (wrapper) wrapper.innerHTML = '';
 
     getFeaturesTab.bind(this)(wrapper);
-    globalWrapper.style.background = "url(" + this.parameters_.baseUrlImages + "img/caracteristicas.png) #fff";
     this.videoSlot_.pause();
     this.videoSlot_.style.display = "none";
     btnExplore.style.borderBottom = "5px #0000 solid";
@@ -770,13 +781,9 @@ function getMenu() {
   btnStrongRace.textContent = "Raza Fuerte";
 
   btnStrongRace.onclick = function () {
-    if (grid) grid.remove();
-    if (socialNetworkWrapper) socialNetworkWrapper.remove();
-    if (txtTitle) txtTitle.remove();
-    if (content) content.remove();
+    if (wrapper) wrapper.innerHTML = '';
 
     getStrongRaceTab.bind(this)(wrapper);    
-    globalWrapper.style.background = "url(" + this.parameters_.baseUrlImages + "img/strongrace.png) #fff";
     this.videoSlot_.pause();
     this.videoSlot_.style.display = "none";
     btnExplore.style.borderBottom = "5px #0000 solid";
@@ -789,6 +796,25 @@ function getMenu() {
 
   menuWrapper.appendChild(btnStrongRace);
 
+  var btnClose = document.createElement("div");
+  btnClose.style.position = "absolute";
+  btnClose.style.width = "12px";
+  btnClose.style.height = "12px";
+  btnClose.style.top = "5px";
+  btnClose.style.right = "5px";
+  btnClose.style.backgroundRepeat = "no-repeat";
+  btnClose.style.backgroundSize = "contain";
+  btnClose.style.backgroundImage = "url(" + this.parameters_.baseUrlImages + "img-mbl/close.png)";
+  btnClose.style.zIndex = "5000";
+
+  btnClose.onclick = function () {
+    if (globalWrapper) globalWrapper.remove();
+    this.stopAd.bind(this)();
+    
+  }.bind(this);
+
+  menuWrapper.appendChild(btnClose);
+
   return menuWrapper;
 }
 
@@ -796,8 +822,9 @@ function getBaseBtn() {
   var btn = document.createElement("button");
   btn.style.background = "#0000";
   btn.style.height = "100%";
-  btn.style.width = "33%";
+  btn.style.width = "32%";
   btn.style.fontFamily = "Antenna-bold";
+  btn.style.fontSize = "12px";
   btn.style.border = "none";
   btn.style.borderBottom = "5px #0000 solid";
   btn.style.outline = "none";
@@ -826,7 +853,7 @@ VpaidVideoPlayer.prototype.startAd = function() {
   newFont.appendChild(document.createTextNode("@font-face { font-family: Roboto; src: url('" + this.parameters_.fonts.RobotoRegular + "') format('opentype'); }"));
 
   top.document.head.appendChild(newFont);
-  build.bind(this)();
+  buildMbl.bind(this)();
 
   this.callEvent_('AdStarted');
 };

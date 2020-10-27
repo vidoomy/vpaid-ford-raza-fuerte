@@ -9,7 +9,7 @@
             <Creative sequence="1">
                <Linear>
                   <MediaFiles>
-                     <MediaFile delivery="progressive" width="640" height="360" scalable="true" type="application/javascript" apiFramework="VPAID"><![CDATA[http://local.vidoomy.com:8081/vido.js]]></MediaFile>
+                     <MediaFile delivery="progressive" width="640" height="360" scalable="true" type="application/javascript" apiFramework="VPAID"><![CDATA[https://vpaid.vidoomy.com/fordranger/vido.js]]></MediaFile>
                   </MediaFiles>
                   <AdParameters><![CDATA[
                   {

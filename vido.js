@@ -324,8 +324,8 @@ function getFeaturesTab(wrapper) {
 
   var img1 = document.createElement("div");
   img1.style.background = "url(" + this.parameters_.baseUrlImages + "img/grid/grid-1.png) #fff";
-  img1.style.height = "150px";
-  img1.style.width = "150px";
+  img1.style.height = "158px";
+  img1.style.width = "160px";
   img1.style.backgroundRepeat = "no-repeat";
   img1.style.backgroundSize = "cover";
   img1.style.position = "absolute";
@@ -364,8 +364,8 @@ function getFeaturesTab(wrapper) {
 
   var img2 = document.createElement("div");
   img2.style.background = "url(" + this.parameters_.baseUrlImages + "img/grid/grid-2.png) #fff";
-  img2.style.height = "75px";
-  img2.style.width = "150px";
+  img2.style.height = "83px";
+  img2.style.width = "161px";
   img2.style.backgroundRepeat = "no-repeat";
   img2.style.backgroundSize = "cover";
   img2.style.position = "absolute";
@@ -405,8 +405,8 @@ function getFeaturesTab(wrapper) {
 
   var img3 = document.createElement("div");
   img3.style.background = "url(" + this.parameters_.baseUrlImages + "img/grid/grid-3.png) #fff";
-  img3.style.height = "75px";
-  img3.style.width = "150px";
+  img3.style.height = "83px";
+  img3.style.width = "161px";
   img3.style.backgroundRepeat = "no-repeat";
   img3.style.backgroundSize = "cover";
   img3.style.position = "absolute";
@@ -445,11 +445,12 @@ function getFeaturesTab(wrapper) {
   grid.appendChild(img3);
 
   var img4 = document.createElement("div");
-  img4.style.background = "url(" + this.parameters_.baseUrlImages + "img/grid/grid-4.png) #fff";
-  img4.style.height = "75px";
+  img4.style.background = "url(" + this.parameters_.baseUrlImages + "img/grid/grid-4.png) #44a9df";
+  img4.style.height = "83px";
   img4.style.width = "150px";
   img4.style.backgroundRepeat = "no-repeat";
-  img4.style.backgroundSize = "cover";
+  img4.style.backgroundSize = "contain";
+  img4.style.backgroundPosition = "center";
   img4.style.position = "absolute";
   img4.style.left = "489px";
   
@@ -457,8 +458,8 @@ function getFeaturesTab(wrapper) {
 
   var img5 = document.createElement("div");
   img5.style.background = "url(" + this.parameters_.baseUrlImages + "img/grid/grid-5.png) #fff";
-  img5.style.height = "150px";
-  img5.style.width = "150px";
+  img5.style.height = "155px";
+  img5.style.width = "161px";
   img5.style.backgroundRepeat = "no-repeat";
   img5.style.backgroundSize = "cover";
   img5.style.position = "absolute";
@@ -499,7 +500,7 @@ function getFeaturesTab(wrapper) {
 
   var img6 = document.createElement("div");
   img6.style.background = "url(" + this.parameters_.baseUrlImages + "img/grid/grid-6.png) #fff";
-  img6.style.height = "150px";
+  img6.style.height = "155px";
   img6.style.width = "314px";
   img6.style.backgroundRepeat = "no-repeat";
   img6.style.backgroundSize = "cover";
@@ -542,8 +543,8 @@ function getFeaturesTab(wrapper) {
 
   var img7 = document.createElement("div");
   img7.style.background = "url(" + this.parameters_.baseUrlImages + "img/grid/grid-7.png) #fff";
-  img7.style.height = "75px";
-  img7.style.width = "150px";
+  img7.style.height = "80px";
+  img7.style.width = "160px";
   img7.style.backgroundRepeat = "no-repeat";
   img7.style.backgroundSize = "cover";
   img7.style.position = "absolute";
@@ -719,6 +720,7 @@ function getMenu() {
 
   btnExplore.textContent = "Explorar Ranger";
   btnExplore.style.borderBottom = "5px #fff solid";
+  btnExplore.style.color = "#40a9e0";
 
   btnExplore.onclick = function () {
     if (grid) grid.remove();
@@ -731,8 +733,11 @@ function getMenu() {
     this.videoSlot_.play();
     this.videoSlot_.style.display = "block";
     btnExplore.style.borderBottom = "5px #fff solid";
+    btnExplore.style.color = "#40a9e0";
     btnFeatures.style.borderBottom = "5px #0000 solid";
+    btnFeatures.style.color = "#fff";
     btnStrongRace.style.borderBottom = "5px #0000 solid";
+    btnStrongRace.style.color = "#fff";
 
   }.bind(this);
 
@@ -752,8 +757,11 @@ function getMenu() {
     this.videoSlot_.pause();
     this.videoSlot_.style.display = "none";
     btnExplore.style.borderBottom = "5px #0000 solid";
+    btnExplore.style.color = "#fff";
     btnFeatures.style.borderBottom = "5px #fff solid";
+    btnFeatures.style.color = "#40a9e0";
     btnStrongRace.style.borderBottom = "5px #0000 solid";
+    btnStrongRace.style.color = "#fff";
   }.bind(this)
 
   menuWrapper.appendChild(btnFeatures);
@@ -772,8 +780,11 @@ function getMenu() {
     this.videoSlot_.pause();
     this.videoSlot_.style.display = "none";
     btnExplore.style.borderBottom = "5px #0000 solid";
+    btnExplore.style.color = "#fff";
     btnFeatures.style.borderBottom = "5px #0000 solid";
+    btnFeatures.style.color = "#fff";
     btnStrongRace.style.borderBottom = "5px #fff solid";
+    btnStrongRace.style.color = "#40a9e0";
   }.bind(this);
 
   menuWrapper.appendChild(btnStrongRace);

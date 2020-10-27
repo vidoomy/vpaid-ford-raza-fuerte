@@ -218,6 +218,7 @@ var grid;
 var socialNetworkWrapper;
 var txtTitle;
 var content;
+var btnClose;
 
 function makeSmallVideo() {
 
@@ -228,6 +229,10 @@ function makeSmallVideo() {
   this.videoSlot_.style.marginLeft = "12px";
 
   this.videoSlot_.controls = true;
+
+  if (btnClose) {
+    btnClose.style.display = "block";
+  }
 }
 
 function build() {
@@ -267,6 +272,27 @@ function build() {
   
   var menuWrapper = getMenu.bind(this)();
   wrapper.appendChild(menuWrapper);
+
+  btnClose = document.createElement("div");
+  btnClose.style.position = "absolute";
+  btnClose.style.width = "16px";
+  btnClose.style.height = "16px";
+  btnClose.style.top = "5px";
+  btnClose.style.right = "5px";
+  btnClose.style.backgroundRepeat = "no-repeat";
+  btnClose.style.backgroundSize = "contain";
+  btnClose.style.backgroundImage = "url(" + this.parameters_.baseUrlImages + "img/close.png)";
+  btnClose.style.zIndex = "5000";
+  btnClose.style.cursor = "pointer";
+  btnClose.style.display = "none";
+
+  btnClose.onclick = function () {
+    //if (globalWrapper) globalWrapper.remove();
+    this.stopAd.bind(this)();
+    
+  }.bind(this);
+
+  wrapper.appendChild(btnClose);
 
   getExploreTab.bind(this)(wrapper);
 

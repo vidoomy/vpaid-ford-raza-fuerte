@@ -247,7 +247,7 @@ function buildMbl() {
 
 function getExploreTab(wrapper) {
 
-  wrapper.style.backgroundImage = "url(" + this.parameters_.baseUrlImages + "img-mbl/background-explore.jpg)";
+  wrapper.style.backgroundImage = "url(" + this.parameters_.baseUrlImages + "img-mbl/background-explore-stretch.jpg)";
   wrapper.style.backgroundRepeat = "no-repeat";
   wrapper.style.backgroundPositionX = "center";
   wrapper.style.backgroundPositionY = "bottom";

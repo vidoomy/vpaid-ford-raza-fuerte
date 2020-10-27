@@ -797,7 +797,7 @@ function getBaseBtn() {
   btn.style.background = "#0000";
   btn.style.height = "100%";
   btn.style.width = "33%";
-  btn.style.fontFamily = "Antenna-bold";
+  btn.style.fontFamily = "Antenna-black";
   btn.style.border = "none";
   btn.style.borderBottom = "5px #0000 solid";
   btn.style.outline = "none";

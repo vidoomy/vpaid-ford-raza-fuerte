@@ -232,6 +232,13 @@ function buildMbl() {
     this.videoSlot_.controls = true;
 
     globalWrapper.appendChild(this.videoSlot_);
+
+    var $body = top.document.body;
+    scrollPosition = top.pageYOffset;
+    $body.style.overflow = 'hidden';
+    $body.style.position = 'fixed';
+    $body.style.top = `-${scrollPosition}px`;
+    $body.style.width = '100%';
   }.bind(this);
 
   var menu = getMenu.bind(this)();
@@ -810,6 +817,13 @@ function getMenu() {
   btnClose.onclick = function () {
     if (globalWrapper) globalWrapper.remove();
     this.stopAd.bind(this)();
+
+    var $body = top.document.body;
+    $body.style.removeProperty('overflow');
+    $body.style.removeProperty('position');
+    $body.style.removeProperty('top');
+    $body.style.removeProperty('width');
+    top.scrollTo(0, scrollPosition);
     
   }.bind(this);
 

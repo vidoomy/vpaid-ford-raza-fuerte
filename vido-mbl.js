@@ -201,6 +201,7 @@ VpaidVideoPlayer.prototype.handshakeVersion = function(version) {
 };
 
 var wrapper;
+var paper;
 
 function buildMbl() {
   globalWrapper = document.createElement("div");
@@ -239,12 +240,31 @@ function buildMbl() {
     $body.style.position = 'fixed';
     $body.style.top = `-${scrollPosition}px`;
     $body.style.width = '100%';
+
+    this.slot_.parentElement.style.zIndex = "-1";
+
+    var contentWrapper = globalWrapper.querySelector("#positioner-text");
+    if (contentWrapper) {
+      contentWrapper.style.top = "calc(" + (this.videoSlot_.offsetHeight + this.videoSlot_.offsetTop) + "px + 2%)";
+    }
+    if (paper) {
+      paper.remove();
+    }
   }.bind(this);
 
   var menu = getMenu.bind(this)();
   globalWrapper.appendChild(menu);
 
-  
+  paper = document.createElement("img");
+  paper.style.width = "40%";
+  paper.style.height = "auto";
+  paper.src = this.parameters_.baseUrlImages + "img-mbl/paper.png";
+  paper.style.position = "absolute";
+  paper.style.bottom = "0";
+  paper.style.right = "0";
+  paper.style.zIndex = "10000005";
+
+  this.slot_.appendChild(paper);
 
   getExploreTab.bind(this)(wrapper);
 
@@ -254,19 +274,23 @@ function buildMbl() {
 
 function getExploreTab(wrapper) {
 
-  wrapper.style.backgroundImage = "url(" + this.parameters_.baseUrlImages + "img-mbl/background-explore-stretch.jpg)";
+  wrapper.style.backgroundImage = "url(" + this.parameters_.baseUrlImages + "img-mbl/background-explore-lessfloor.jpg)";
   wrapper.style.backgroundRepeat = "no-repeat";
   wrapper.style.backgroundPositionX = "center";
   wrapper.style.backgroundPositionY = "bottom";
   wrapper.style.backgroundSize = "contain";
-  wrapper.style.backgroundColor = "#204054";
+  wrapper.style.backgroundColor = "#1b394e";
 
-  var socialNetworkWrapper = getSocialNetworkFor.bind(this)('explore');
-  wrapper.appendChild(socialNetworkWrapper);
+  var contentWrapper = document.createElement("div");
+  contentWrapper.id = "positioner-text";
+  contentWrapper.style.position = "absolute";
+  contentWrapper.style.left = "0"; 
+  contentWrapper.style.right = "0"; 
+  contentWrapper.style.bottom = "0"; 
   
   var centerWrapper = document.createElement("div");
   centerWrapper.style.position = "absolute";
-  centerWrapper.style.bottom = "60px";
+  centerWrapper.style.top = "80%";
   centerWrapper.style.right = "0";
   centerWrapper.style.left = "0";
   centerWrapper.style.width = "100%";
@@ -288,19 +312,20 @@ function getExploreTab(wrapper) {
   }
 
   centerWrapper.appendChild(btn);
-  wrapper.appendChild(centerWrapper);
+  contentWrapper.appendChild(centerWrapper);
 
 
   var txt = document.createElement("div");
   txt.style.position = "absolute";
   txt.style.width = "55%";
-  txt.style.top = "54%";
+  txt.style.top = "10%";
   txt.style.fontFamily = "Antenna-bold";
   txt.style.color = "#fff";
   txt.style.left = "20px";
 
   var h2 = document.createElement("h2");
   h2.textContent = "RANGER.";
+  h2.style.margin = "0";
 
   txt.appendChild(h2);
 
@@ -310,7 +335,26 @@ function getExploreTab(wrapper) {
   txt.appendChild(p);
 
 
-  wrapper.appendChild(txt);
+  var socialNetworkWrapper = getSocialNetworkFor.bind(this)('explore');
+  txt.appendChild(socialNetworkWrapper);
+
+  contentWrapper.appendChild(txt);
+
+
+  var logo = document.createElement("div");
+  logo.style.position = "absolute";
+  logo.style.top = "10%";
+  logo.style.right = "20px";
+  logo.style.backgroundImage = "url(" + this.parameters_.baseUrlImages + "img-mbl/logo.jpg)";
+  logo.style.backgroundSize = "contain";
+  logo.style.backgroundRepeat = "no-repeat";
+  logo.style.width = "90px";
+  logo.style.height = "90px";
+  logo.style.zIndex = "5";
+
+  contentWrapper.appendChild(logo);
+
+  wrapper.appendChild(contentWrapper);
 
 }
 
@@ -541,9 +585,9 @@ function getSocialNetworkFor(what) {
 
   socialNetworkWrapper.style.position = "absolute";
   if (what === 'explore') {
-    socialNetworkWrapper.style.top = "75%";
-    socialNetworkWrapper.style.left = "12px";
+    socialNetworkWrapper.style.left = "-10px";
     socialNetworkWrapper.style.width = "300px";
+    socialNetworkWrapper.style.height = "30px";
     socialNetworkWrapper.style.display = "flex";
   }
   if (what === 'features') {
@@ -561,7 +605,7 @@ function getSocialNetworkFor(what) {
   btnInstagram.style.outline = "none";
   btnInstagram.style.background = "url(" + this.parameters_.baseUrlImages + "img/instagram.png)";
   btnInstagram.style.backgroundRepeat = "no-repeat";
-  btnInstagram.style.backgroundSize = "cover";
+  btnInstagram.style.backgroundSize = "contain";
   btnInstagram.style.width = "20px";
   btnInstagram.style.height = "20px";
   btnInstagram.style.marginLeft = "10px";
@@ -577,7 +621,7 @@ function getSocialNetworkFor(what) {
   btnFb.style.outline = "none";
   btnFb.style.background = "url(" + this.parameters_.baseUrlImages + "img/facebook.png)";
   btnFb.style.backgroundRepeat = "no-repeat";
-  btnFb.style.backgroundSize = "cover";
+  btnFb.style.backgroundSize = "contain";
   btnFb.style.width = "20px";
   btnFb.style.height = "20px";
   btnFb.style.marginLeft = "10px";
@@ -593,7 +637,7 @@ function getSocialNetworkFor(what) {
   btnYt.style.outline = "none";
   btnYt.style.background = "url(" + this.parameters_.baseUrlImages + "img/youtube.png)";
   btnYt.style.backgroundRepeat = "no-repeat";
-  btnYt.style.backgroundSize = "cover";
+  btnYt.style.backgroundSize = "contain";
   btnYt.style.width = "20px";
   btnYt.style.height = "20px";
   btnYt.style.marginLeft = "10px";
@@ -739,6 +783,8 @@ function getMenu() {
   menuWrapper.style.left = "0";
   menuWrapper.style.right = "0";
   menuWrapper.style.backgroundColor = "#1b394e";
+  menuWrapper.style.display = "flex";
+  menuWrapper.style.justifyContent = "space-evenly";
 
   var btnExplore = getBaseBtn();
   var btnFeatures = getBaseBtn();
@@ -824,6 +870,9 @@ function getMenu() {
     $body.style.removeProperty('top');
     $body.style.removeProperty('width');
     top.scrollTo(0, scrollPosition);
+
+    this.slot_.parentElement.style.zIndex = "unset";
+
     
   }.bind(this);
 
@@ -836,7 +885,7 @@ function getBaseBtn() {
   var btn = document.createElement("button");
   btn.style.background = "#0000";
   btn.style.height = "100%";
-  btn.style.width = "32%";
+  //btn.style.width = "32%";
   btn.style.fontFamily = "Antenna-bold";
   btn.style.fontSize = "12px";
   btn.style.border = "none";
@@ -844,6 +893,7 @@ function getBaseBtn() {
   btn.style.outline = "none";
   btn.style.color = "#fff";
   btn.style.cursor = "pointer";
+  btn.style.whiteSpace = "nowrap";
 
   btn.onmouseenter = function () {
     this.style.background = "#0004";
